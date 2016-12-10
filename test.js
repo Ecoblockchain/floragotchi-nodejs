@@ -4,5 +4,5 @@ led.dir(mraa.DIR_OUT);
 var toggle = false;
 setInterval(function(){
   toggle = !toggle;
-  led.write(toggle); 
+  led.write(toggle?1:0); 
 }, 1000);
