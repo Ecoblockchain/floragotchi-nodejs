@@ -10,7 +10,7 @@ led.dir(mraa.DIR_OUT);
 // }, 1000);
 
 var moistureSensor = new mraa.Aio(0);
-var moistureValue = moistureSensor.read();
 setInterval(function(){
+  var moistureValue = moistureSensor.read();
   console.log("Moisture Value ", moistureValue);
 }, 1000);
