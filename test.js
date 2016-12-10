@@ -13,4 +13,9 @@ var moistureSensor = new mraa.Aio(0);
 setInterval(function(){
   var moistureValue = moistureSensor.read();
   console.log("Moisture Value ", moistureValue);
+  if(moistureValue > 200){
+    led.write(1); 
+  }else{
+    led.write(0); 
+  }
 }, 1000);
