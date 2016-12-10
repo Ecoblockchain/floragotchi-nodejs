@@ -1,22 +1,19 @@
-var mraa = require('mraa');
+var Led = require('./led')
+
+var state = {
+  red: new Led(5),
+  green: new Led(6)
+}
 
 function displayState(env) {
   console.log("displayState: " + JSON.stringify(env));
-  var redLed = new mraa.Gpio(5);
-  var greenLed = new mraa.Gpio(6);
   if (env.isGood) {
-    redLed.dir(mraa.DIR_OUT);
-    redLed.write(0);
-
-    greenLed.dir(mraa.DIR_OUT);
-    greenLed.write(1);
+    state.red.on()
+    state.green.off()
   }
   if (!env.isGood) {
-    redLed.dir(mraa.DIR_OUT);
-    redLed.write(1);
-
-    greenLed.dir(mraa.DIR_OUT);
-    greenLed.write(0);
+    state.red.off()
+    state.green.on()
   }
 }
 
