@@ -1,6 +1,6 @@
 
 function displayState(env) {
-  console.log("displayState");
+  console.log("displayState: " + JSON.stringify(env));
 }
 
 module.exports = displayState;

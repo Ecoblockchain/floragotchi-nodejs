@@ -1,6 +1,11 @@
 
+var isGood = false;
+
 function checkEnvirounment() {
-  return {};
+  isGood = !isGood;
+  return {
+    "isGood": isGood
+  };
 }
 
 module.exports = checkEnvirounment;
