@@ -5,16 +5,8 @@ var board = new five.Board({
 });
 
 board.on("ready", function() {
-
-  var lcd = new five.LCD({
-    controller: "JHD1313M1"
-  });
-
-  lcd.useChar("TEST");
-
-  lcd.cursor(0, 0).print("hello :heart:");
-
-  lcd.blink();
-
-  lcd.cursor(1, 0).print("Blinking? ");
+  var lcd = require('jsupm_i2clcd');
+  var display = new lcd.Jhd1313m1(0, 0x3E, 0x62);
+  display.setCursor(1, 1);
+  display.write('hi there');
 });
