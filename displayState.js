@@ -7,13 +7,14 @@ var state = {
 
 function displayState(env) {
   console.log("displayState: " + JSON.stringify(env));
+
   if (env.isGood) {
-    state.red.on()
-    state.green.off()
-  }
-  if (!env.isGood) {
     state.red.off()
     state.green.on()
+  }
+  if (!env.isGood) {
+    state.red.on()
+    state.green.off()
   }
 }
 
