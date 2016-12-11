@@ -3,13 +3,46 @@ var Edison = require("edison-io");
 
 var Floragotchi = function (board) {
 
-  var state = {};
-
   board.on("ready", function() {
     console.log("Board is ready");
 
-    var redLed = new five.Led(5);
-    var greenLed = new five.Led(6);
+    var redLed = new five.Led({
+      id: "red",
+      pin: 5
+    });
+
+    var greenLed = new five.Led({
+      id: "green",
+      pin: 6
+    });
+
+    var onSensorData = function() {
+      console.log("light:" + lightSensor.value);
+      console.log("moisture:" + moistureSensor.value);
+      if (lightSensor.value > 200 && moistureSensor.value > 200) {
+        redLed.off();
+        // redLed.stop().off();
+        setTimeout(() => greenLed.on(), 200);
+      } else {
+        greenLed.off();
+        // greenLed.stop().off();
+        setTimeout(() => redLed.on(), 200);
+      }
+    }
+
+    var lightSensor = new five.Sensor({
+      "pin": "A0",
+      "freq": 500
+    });
+
+    lightSensor.on("change", onSensorData);
+
+    var moistureSensor = new five.Sensor({
+      "pin": "A2",
+      "freq": 500
+    });
+
+    moistureSensor.on("change", onSensorData);
 
     /*
     var thermoSensor = new five.Multi({
@@ -28,22 +61,6 @@ var Floragotchi = function (board) {
       console.log("--------------------------------------");
     });
     */
-
-    var lightSensor = new five.Sensor({
-      "pin": "A0",
-      "freq": 500
-    });
-
-    lightSensor.on("change", function() {
-      console.log(lightSensor.value);
-      if (lightSensor.value > 200) {
-        redLed.off();
-        greenLed.on();
-      } else {
-        greenLed.off();
-        redLed.on();
-      }
-    });
   });
 }
 
