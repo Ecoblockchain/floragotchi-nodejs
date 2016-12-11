@@ -16,22 +16,26 @@ var Floragotchi = function (board) {
       pin: 6
     });
 
+    var lcd = new five.LCD({
+      controller: "JHD1313M1"
+    });
+
     var onSensorData = function() {
       var light = lightSensor.value;
       var moisture = moistureSensor.value;
-      var temp = thermoSensor.thermometer.celsius;
-      console.log("light:" + light);
-      console.log("moisture:" + moisture);
-      console.log("temp (C):" + temp);
+      var tempc = thermoSensor.thermometer.celsius;
+      var tempf = thermoSensor.thermometer.fahrenheit;
+      lcd.cursor(0, 0).print("Moisture: " + moisture);
+      lcd.cursor(1, 0).print("Light:" + light + " T:" + tempf);
       if (lightSensor.value > 200
          && moistureSensor.value > 200
-         && temp > 20) {
+         && tempc > 20) {
         redLed.off();
-        // redLed.stop().off();
+        // Delay to avoid race conditions
         setTimeout(() => greenLed.on(), 200);
       } else {
         greenLed.off();
-        // greenLed.stop().off();
+        // Delay to avoid race conditions
         setTimeout(() => redLed.on(), 200);
       }
     }
@@ -72,8 +76,8 @@ var Floragotchi = function (board) {
 
 var board = new five.Board({
   io: new Edison(),
-  // repl: false,
-  // debug: false
+  repl: false,
+  debug: false
 });
 
 new Floragotchi(board);
