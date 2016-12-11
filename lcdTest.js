@@ -7,7 +7,7 @@ var board = new five.Board({
 board.on("ready", function() {
 
   var lcd = new five.LCD({
-    controller: "JHD1313M3"
+    controller: "JHD1313M1"
   });
 
   lcd.useChar("TEST");
