@@ -30,10 +30,12 @@ var Floragotchi = function (board) {
       if (lightSensor.value > 200
          && moistureSensor.value > 200
          && tempc > 20) {
+        lcd.bgColor("green");
         redLed.off();
         // Delay to avoid race conditions
         setTimeout(() => greenLed.on(), 200);
       } else {
+        lcd.bgColor("red");
         greenLed.off();
         // Delay to avoid race conditions
         setTimeout(() => redLed.on(), 200);
