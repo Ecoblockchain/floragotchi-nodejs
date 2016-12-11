@@ -17,9 +17,15 @@ var Floragotchi = function (board) {
     });
 
     var onSensorData = function() {
-      console.log("light:" + lightSensor.value);
-      console.log("moisture:" + moistureSensor.value);
-      if (lightSensor.value > 200 && moistureSensor.value > 200) {
+      var light = lightSensor.value;
+      var moisture = moistureSensor.value;
+      var temp = thermoSensor.thermometer.celsius;
+      console.log("light:" + light);
+      console.log("moisture:" + moisture);
+      console.log("temp (C):" + temp);
+      if (lightSensor.value > 200
+         && moistureSensor.value > 200
+         && temp > 20) {
         redLed.off();
         // redLed.stop().off();
         setTimeout(() => greenLed.on(), 200);
@@ -44,11 +50,11 @@ var Floragotchi = function (board) {
 
     moistureSensor.on("change", onSensorData);
 
-    /*
     var thermoSensor = new five.Multi({
       controller: "TH02"
     });
 
+    /*
     thermoSensor.on("change", function() {
       console.log("Thermometer");
       console.log("  celsius           : ", this.thermometer.celsius);
